@@ -8,31 +8,38 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 
 
-    $publisher = $database->select("publisher", "*", ["id" => $id]);
+    $author = $database->select("author", "*", ["id" => $id]);
 
-    if(!isset($publisher[0]))
+    if(!isset($author[0]))
     {
-        header("location:" . BASE_URL . "publisher");
+        header("location:" . BASE_URL . "author");
         exit;
     }
 
-    $data = $publisher[0];
+    $data = $author[0];
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     extract($_POST);
     $err = [];
 
-    $name = sanitize_data($name);
+    $fname = ucfirst(sanitize_data($firstName));
+    $lname = ucfirst(sanitize_data($lastName));
     $street = sanitize_data($street);
     $city = sanitize_data($city);
     $pin_code = sanitize_data($pin_code);
 
 
-    if (empty($name)) {
-        array_push($err, "Name is required");
+    if (empty($fname)) {
+        array_push($err, "First Name is required");
     }
-    if (strlen($name) < 3) {
-        array_push($err, "Name must be at least 3 characters long");
+    if (strlen($fname) < 2) {
+        array_push($err, "First Name must be at least 2 characters long");
+    }
+    if (empty($lname)) {
+        array_push($err, "Last Name is required");
+    }
+    if (strlen($lname) < 2) {
+        array_push($err, "Last Name must be at least 2 characters long");
     }
     if (empty($street)) {
         array_push($err, "Street address is required");
@@ -51,19 +58,20 @@ if (isset($_GET["id"])) {
     if (empty($err)) {
 
         $update_data = [
-            "name" => $name,
+            "firstName" => $fname,
+            "lastName" => $lname,
             "street" => $street,
             "pin_code" => $pin_code,
             "city_id" => $city
         ];
 
-        $result = $database->update("publisher", $update_data, ["id" => $id]);
+        $result = $database->update("author", $update_data, ["id" => $id]);
 
         if ($result) {
 
-            set_flash("success", "Publisher updated successfully.");
+            set_flash("success", "Author updated successfully.");
 
-            header("location:" . BASE_URL . "/publisher");
+            header("location:" . BASE_URL . "/author");
             exit;
         } else {
 
@@ -71,7 +79,7 @@ if (isset($_GET["id"])) {
         }
     }
 } else {
-    header("location:" . BASE_URL . "publisher");
+    header("location:" . BASE_URL . "author");
     exit;
 }
 
@@ -106,11 +114,11 @@ if (isset($_GET["id"])) {
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Publisher</h1>
+                            <h1 class="m-0">Author</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>publisher">Publisher</a></li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>author">Author</a></li>
                                 <li class="breadcrumb-item active">Edit</li>
                             </ol>
                         </div>
@@ -128,7 +136,7 @@ if (isset($_GET["id"])) {
                         <div class="col-md-12 col-sm-12">
                             <div class="card card-info">
                                 <div class="card-header">
-                                    <h3 class="card-title">Update Publisher</h3>
+                                    <h3 class="card-title">Update Author</h3>
                                 </div>
 
                                 <?php
@@ -149,15 +157,20 @@ if (isset($_GET["id"])) {
 
                                 ?>
 
-                                <form id="frm_publisher" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
+                                <form id="frm_author" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                                     <input type="hidden" name="id" value="<?= (isset($data["id"])) ? $data["id"] : "" ?>">
                                     <div class="card-body">
 
                                         <div class="row">
                                             <div class="col-md-6">
+                                               
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name" value="<?= (isset($data["name"])) ? $data["name"] : "" ?>">
+                                                    <label for="name">First Name</label>
+                                                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter author first name" value="<?= (isset($data["firstName"])) ? $data["firstName"] : "" ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Last Name</label>
+                                                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter author last name" value="<?= (isset($data["lastName"])) ? $data["lastName"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="street">Street Address</label>

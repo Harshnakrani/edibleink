@@ -2,7 +2,7 @@
 require_once "../connection.php";
 require_once "../function.php";
 
-$publisher = $database->select("publisher", "*");
+$author = $database->select("author", "*");
 
 ?>
 
@@ -32,11 +32,11 @@ $publisher = $database->select("publisher", "*");
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Publisher</h1>
+                            <h1 class="m-0">Author</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">Publisher</li>
+                                <li class="breadcrumb-item active">Author</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -53,16 +53,16 @@ $publisher = $database->select("publisher", "*");
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title float-right"> <a href="<?= BASE_URL ?>publisher/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a> </h3>
+                                    <h3 class="card-title float-right"> <a href="<?= BASE_URL ?>author/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a> </h3>
                                 </div>
 
                                 <div class="card-body">
 
-                                    <table id="dt_publisher" class="dt table table-bordered table-hover dataTable dtr-inline">
+                                    <table id="dt_author" class="dt table table-bordered table-hover dataTable dtr-inline">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Name</th>
+                                                <th>Full Name</th>
                                                 <th>Address</th>
                                                 <th>Action</th>
                                             </tr>
@@ -70,17 +70,17 @@ $publisher = $database->select("publisher", "*");
                                         <tbody>
                                             <?php
 
-                                            foreach ($publisher as $single) {
+                                            foreach ($author as $single) {
                                             ?>
                                                 <tr>
                                                     <td><?= $single["id"] ?></td>
-                                                    <td><?= $single["name"] ?></td>
+                                                    <td><?= $single["firstName"]." ".$single["lastName"] ?></td>
                                                     <td><?= $single["street"] . ", " . get_location($single["city_id"]) . ", " . $single["pin_code"] ?></td>
                                                     <td>
-                                                        <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>publisher/update.php?id=<?= $single["id"] ?>">
+                                                        <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>author/update.php?id=<?= $single["id"] ?>">
                                                             Edit
                                                         </a>
-                                                        <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>publisher/delete.php?id=<?= $single["id"] ?>">
+                                                        <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>author/delete.php?id=<?= $single["id"] ?>">
                                                             Delete
                                                         </a>
                                                     </td>
@@ -119,6 +119,7 @@ $publisher = $database->select("publisher", "*");
         </aside>
         <!-- /.control-sidebar -->
 
+        
         <?php include_once "../layout/footer.php" ?>
     </div>
 

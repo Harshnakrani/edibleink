@@ -48,13 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result) {
 
-            set_flash("success","Publisher added successfully.");
+            set_flash("success", "Publisher added successfully.");
 
             header("location:" . BASE_URL . "/publisher");
             exit;
         } else {
 
-            set_flash("error","Database Error Please Try Again");
+            set_flash("error", "Database Error Please Try Again");
         }
     }
 }
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?=BASE_URL?>publisher">Publisher</a></li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>publisher">Publisher</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="container-fluid">
                     <div class="row">
 
-                        <div class="col-md-6 col-sm-12 col-lg-6">
+                        <div class="col-md-12 col-sm-12">
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Add New Publisher</h3>
@@ -133,43 +133,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                 <form id="frm_publisher" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="street">Street Address</label>
+                                                    <input type="text" name="street" class="form-control" id="street" placeholder="Enter street/apt name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Province</label>
+                                                    <select class="form-control select2bs4" name="province" id="sl_state" style="width: 100%;">
+                                                        <option value="">Please Select Option</option>
+                                                        <?php $res = get_province();
+
+                                                        foreach ($res as $single) {
+                                                        ?>
+                                                            <option value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
+                                                        <?php
+                                                        }
+
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+
+
+                                                <div class="form-group">
+                                                    <label>City</label>
+                                                    <select class="form-control select2bs4" name="city" id="sl_city" style="width: 100%;">
+                                                        <option value="">Please Select Option</option>
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="street">Pin code</label>
+                                                    <input type="text" name="pin_code" maxlength="6" class="form-control" id="pin_code" placeholder="Enter pin code">
+                                                </div>
+
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="street">Street Address</label>
-                                            <input type="text" name="street" class="form-control" id="street" placeholder="Enter street/apt name">
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label>Province</label>
-                                            <select class="form-control select2bs4" name="province" id="sl_state" style="width: 100%;">
-                                                <option value="">Please Select Option</option>
-                                                <?php $res = get_province();
-
-                                                foreach ($res as $single) {
-                                                ?>
-                                                    <option value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
-                                                <?php
-                                                }
-
-                                                ?>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <select class="form-control select2bs4" name="city" id="sl_city" style="width: 100%;">
-                                                <option value="">Please Select Option</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="street">Pin code</label>
-                                            <input type="text" name="pin_code" maxlength="6" class="form-control" id="pin_code" placeholder="Enter pin code">
-                                        </div>
 
 
                                     </div>
@@ -202,14 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                <?php echo  APP_NAME ?>
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2022.</strong> All rights reserved.
-        </footer>
+        <?php include_once "../layout/footer.php" ?>
     </div>
 
 

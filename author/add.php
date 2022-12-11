@@ -3,36 +3,30 @@ require_once "../connection.php";
 require_once "../function.php";
 
 
-if (isset($_GET["id"])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $id = $_GET["id"];
-
-
-    $publisher = $database->select("publisher", "*", ["id" => $id]);
-
-    if(!isset($publisher[0]))
-    {
-        header("location:" . BASE_URL . "publisher");
-        exit;
-    }
-
-    $data = $publisher[0];
-} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+    
     extract($_POST);
     $err = [];
-
-    $name = sanitize_data($name);
+    
+    $fname = ucfirst(sanitize_data($firstName));
+    $lname = ucfirst(sanitize_data($lastName));
     $street = sanitize_data($street);
     $city = sanitize_data($city);
     $pin_code = sanitize_data($pin_code);
 
 
-    if (empty($name)) {
-        array_push($err, "Name is required");
+    if (empty($fname)) {
+        array_push($err, "First Name is required");
     }
-    if (strlen($name) < 3) {
-        array_push($err, "Name must be at least 3 characters long");
+    if (strlen($fname) < 2) {
+        array_push($err, "First Name must be at least 2 characters long");
+    }
+    if (empty($lname)) {
+        array_push($err, "Last Name is required");
+    }
+    if (strlen($lname) < 2) {
+        array_push($err, "Last Name must be at least 2 characters long");
     }
     if (empty($street)) {
         array_push($err, "Street address is required");
@@ -50,32 +44,29 @@ if (isset($_GET["id"])) {
 
     if (empty($err)) {
 
-        $update_data = [
-            "name" => $name,
+        $insert_data = [
+            "id" => get_next_id("author"),
+            "firstName" => $fname,
+            "lastName" => $lname,
             "street" => $street,
             "pin_code" => $pin_code,
             "city_id" => $city
         ];
 
-        $result = $database->update("publisher", $update_data, ["id" => $id]);
+        $result = $database->insert("author", $insert_data);
 
         if ($result) {
 
-            set_flash("success", "Publisher updated successfully.");
+            set_flash("success", "Author added successfully.");
 
-            header("location:" . BASE_URL . "/publisher");
+            header("location:" . BASE_URL . "/author");
             exit;
         } else {
 
             set_flash("error", "Database Error Please Try Again");
         }
     }
-} else {
-    header("location:" . BASE_URL . "publisher");
-    exit;
 }
-
-
 
 
 ?>
@@ -106,12 +97,12 @@ if (isset($_GET["id"])) {
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Publisher</h1>
+                            <h1 class="m-0">Author</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>publisher">Publisher</a></li>
-                                <li class="breadcrumb-item active">Edit</li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>author">Author</a></li>
+                                <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
 
@@ -126,9 +117,9 @@ if (isset($_GET["id"])) {
                     <div class="row">
 
                         <div class="col-md-12 col-sm-12">
-                            <div class="card card-info">
+                            <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Update Publisher</h3>
+                                    <h3 class="card-title">Add New Author</h3>
                                 </div>
 
                                 <?php
@@ -149,75 +140,52 @@ if (isset($_GET["id"])) {
 
                                 ?>
 
-                                <form id="frm_publisher" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
-                                    <input type="hidden" name="id" value="<?= (isset($data["id"])) ? $data["id"] : "" ?>">
+                                <form id="frm_author" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                                     <div class="card-body">
-
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name" value="<?= (isset($data["name"])) ? $data["name"] : "" ?>">
+                                                    <label for="name">First Name</label>
+                                                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter author first name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Last Name</label>
+                                                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter author last name">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="street">Street Address</label>
-                                                    <input type="text" name="street" class="form-control" id="street" placeholder="Enter street/apt name" value="<?= (isset($data["street"])) ? $data["street"] : "" ?>">
+                                                    <input type="text" name="street" class="form-control" id="street" placeholder="Enter street/apt name">
                                                 </div>
 
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Province</label>
                                                     <select class="form-control select2bs4" name="province" id="sl_state" style="width: 100%;">
                                                         <option value="">Please Select Option</option>
-                                                        <?php
-                                                        $res = get_province();
-
-                                                        $province = get_stateid_by_city($data["city_id"]);
+                                                        <?php $res = get_province();
 
                                                         foreach ($res as $single) {
                                                         ?>
-                                                            <option <?php
-
-                                                                    if ($province == $single["id"]) {
-                                                                        echo "selected";
-                                                                    }
-
-                                                                    ?> value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
+                                                            <option value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
                                                         <?php
                                                         }
 
                                                         ?>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
 
                                                 <div class="form-group">
                                                     <label>City</label>
                                                     <select class="form-control select2bs4" name="city" id="sl_city" style="width: 100%;">
                                                         <option value="">Please Select Option</option>
-                                                        <?php
 
-                                                        $city = get_cities($province);
-
-                                                        foreach ($city as $single) {
-                                                        ?>
-                                                            <option <?php
-
-                                                                    if ($data["city_id"] == $single["id"]) {
-                                                                        echo "selected";
-                                                                    }
-
-                                                                    ?> value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
-                                                        <?php
-                                                        }
-
-                                                        ?>
                                                     </select>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="street">Pin code</label>
-                                                    <input type="text" name="pin_code" maxlength="6" class="form-control" id="pin_code" placeholder="Enter pin code" value="<?= (isset($data["pin_code"])) ? $data["pin_code"] : "" ?>">
+                                                    <input type="text" name="pin_code" maxlength="6" class="form-control" id="pin_code" placeholder="Enter pin code">
                                                 </div>
 
                                             </div>
@@ -227,7 +195,7 @@ if (isset($_GET["id"])) {
                                     </div>
 
                                     <div class="card-footer ">
-                                        <button type="submit" class="btn btn-info float-right">Save</button>
+                                        <button type="submit" class="btn btn-primary float-right">Create</button>
                                     </div>
                                 </form>
                             </div>
@@ -253,6 +221,7 @@ if (isset($_GET["id"])) {
         </aside>
         <!-- /.control-sidebar -->
 
+        <!-- Main Footer -->
         <?php include_once "../layout/footer.php" ?>
     </div>
 

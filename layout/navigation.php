@@ -68,7 +68,7 @@
                  </li>
 
                  <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="<?=BASE_URL?>author/" class="nav-link">
                          <i class="nav-icon fas fa-feather"></i>
                          <p>
                              Authors

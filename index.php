@@ -129,15 +129,7 @@ require_once "function.php";
         </aside>
         <!-- /.control-sidebar -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                <?php echo  APP_NAME ?>
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2022.</strong> All rights reserved.
-        </footer>
+        <?php include_once "layout/footer.php" ?>
     </div>
 
     <?php include_once "layout/scripts.php" ?>

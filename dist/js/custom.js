@@ -14,7 +14,7 @@ $(document).ready(function () {
         $(this).trigger('blur');
     });
 
-    $("#dt_publisher").DataTable({
+    $(".dt").DataTable({
 
     });
 
