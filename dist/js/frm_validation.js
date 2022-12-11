@@ -2,7 +2,7 @@ $(document).ready(function () {
 
 
     //publisher add
-    $('#frm_add_publisher').validate({
+    $('#frm_publisher').validate({
         rules: {
             name: {
                 required: true,

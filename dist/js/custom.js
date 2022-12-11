@@ -29,6 +29,9 @@ $(document).ready(function () {
                 for (i in result) {
                     options.push(new Option(result[i].name, result[i].id, false, false));
                 }
+                $('#sl_city').empty().trigger("change");
+
+                $("#sl_city").append(new Option("Please Select Option", "", false, false));
                 $("#sl_city").append(options).trigger("change");
 
             }

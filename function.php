@@ -14,7 +14,21 @@ function get_province()
     return $res;
 }
 
-function get_cities($state_id)
+function get_stateid_by_city($city_id = "")
+{
+    global $database;
+
+    $res = $database->select("city", "state_id", ["id" => $city_id]);
+    if (isset($res[0])) {
+        return $res[0];
+    }
+    else
+    {
+        return "";
+    }
+}
+
+function get_cities($state_id = "")
 {
     global $database;
 
@@ -56,15 +70,15 @@ function set_flash($type, $message)
 function get_location($city_id)
 {
     global $database;
-    
+
     $city = $database->select('city', [
         '[>]state' => ['state_id' => 'id']
-      ], [
+    ], [
         'city.name(city)',
         'state.name(state)'
-      ], [
+    ], [
         'city.id' => $city_id
-      ]);
+    ]);
 
-      return $city[0]["city"].", ".$city[0]["state"];
+    return $city[0]["city"] . ", " . $city[0]["state"];
 }

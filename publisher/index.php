@@ -77,7 +77,7 @@ $publisher = $database->select("publisher", "*");
                                                     <td><?= $single["name"] ?></td>
                                                     <td><?= $single["street"] . ", " . get_location($single["city_id"]) . ", " . $single["pin_code"] ?></td>
                                                     <td>
-                                                        <a class="btn btn-info btn-sm" href="#">
+                                                        <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>publisher/update.php?id=<?= $single["id"] ?>">
                                                             Edit
                                                         </a>
                                                         <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>publisher/delete.php?id=<?= $single["id"] ?>">
