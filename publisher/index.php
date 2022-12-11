@@ -2,6 +2,7 @@
 require_once "../connection.php";
 require_once "../function.php";
 
+$publisher = $database->select("publisher", "*");
 
 ?>
 
@@ -52,7 +53,7 @@ require_once "../function.php";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title float-right"> <a href="<?=BASE_URL?>publisher/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a> </h3>
+                                    <h3 class="card-title float-right"> <a href="<?= BASE_URL ?>publisher/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a> </h3>
                                 </div>
 
                                 <div class="card-body">
@@ -66,6 +67,31 @@ require_once "../function.php";
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            <?php
+
+                                            foreach ($publisher as $single) {
+                                            ?>
+                                                <tr>
+                                                    <td><?= $single["id"] ?></td>
+                                                    <td><?= $single["name"] ?></td>
+                                                    <td><?= $single["street"] . ", " . get_location($single["city_id"]) . ", " . $single["pin_code"] ?></td>
+                                                    <td>
+                                                        <a class="btn btn-info btn-sm" href="#">
+                                                            Edit
+                                                        </a>
+                                                        <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>publisher/delete.php?id=<?= $single["id"] ?>">
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+
+                                            ?>
+
+
+                                        </tbody>
                                     </table>
 
                                 </div>

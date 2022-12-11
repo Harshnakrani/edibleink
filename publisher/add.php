@@ -3,6 +3,63 @@ require_once "../connection.php";
 require_once "../function.php";
 
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    extract($_POST);
+    $err = [];
+
+    $name = sanitize_data($name);
+    $street = sanitize_data($street);
+    $city = sanitize_data($city);
+    $pin_code = sanitize_data($pin_code);
+
+
+    if (empty($name)) {
+        array_push($err, "Name is required");
+    }
+    if (strlen($name) < 3) {
+        array_push($err, "Name must be at least 3 characters long");
+    }
+    if (empty($street)) {
+        array_push($err, "Street address is required");
+    }
+    if (empty($province)) {
+        array_push($err, "Province is required");
+    }
+    if (empty($city)) {
+        array_push($err, "City is required");
+    }
+    if (empty($pin_code) || strlen($pin_code) != 6) {
+        array_push($err, "Pin code is required and must be 6 digits long");
+    }
+
+
+    if (empty($err)) {
+
+        $insert_data = [
+            "id" => get_next_id("publisher"),
+            "name" => $name,
+            "street" => $street,
+            "pin_code" => $pin_code,
+            "city_id" => $city
+        ];
+
+        $result = $database->insert("publisher", $insert_data);
+
+        if ($result) {
+
+            set_flash("success","Publisher added successfully.");
+
+            header("location:" . BASE_URL . "/publisher");
+            exit;
+        } else {
+
+            set_flash("error","Database Error Please Try Again");
+        }
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +90,12 @@ require_once "../function.php";
                         <div class="col-sm-6">
                             <h1 class="m-0">Publisher</h1>
                         </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="<?=BASE_URL?>publisher">Publisher</a></li>
+                                <li class="breadcrumb-item active">Add</li>
+                            </ol>
+                        </div>
 
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -44,19 +107,34 @@ require_once "../function.php";
                 <div class="container-fluid">
                     <div class="row">
 
-
-                        <div class="col-md-6">
-
+                        <div class="col-md-6 col-sm-12 col-lg-6">
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Add New Publisher</h3>
                                 </div>
 
+                                <?php
 
-                                <form id="frm_add_publisher" action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                                if (!empty($err)) {
+
+                                    echo "<div class='alert alert-danger m-4'> <ul>";
+
+                                    foreach ($err as $single) {
+                                ?>
+                                        <li><?= $single ?></li>
+                                <?php
+                                    }
+
+                                    echo "</ul></div>";
+                                }
+
+
+                                ?>
+
+                                <form id="frm_add_publisher" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="name">Full Name</label>
+                                            <label for="name">Name</label>
                                             <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name">
                                         </div>
                                         <div class="form-group">
@@ -68,7 +146,7 @@ require_once "../function.php";
                                             <label>Province</label>
                                             <select class="form-control select2bs4" name="province" id="sl_state" style="width: 100%;">
                                                 <option value="">Please Select Option</option>
-                                                <?php $res = get_province(); 
+                                                <?php $res = get_province();
 
                                                 foreach ($res as $single) {
                                                 ?>
@@ -82,12 +160,12 @@ require_once "../function.php";
 
                                         <div class="form-group">
                                             <label>City</label>
-                                            <select class="form-control select2bs4" name="city"  id="sl_city" style="width: 100%;">
+                                            <select class="form-control select2bs4" name="city" id="sl_city" style="width: 100%;">
                                                 <option value="">Please Select Option</option>
-                                                
+
                                             </select>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="street">Pin code</label>
                                             <input type="text" name="pin_code" maxlength="6" class="form-control" id="pin_code" placeholder="Enter pin code">
@@ -96,8 +174,8 @@ require_once "../function.php";
 
                                     </div>
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    <div class="card-footer ">
+                                        <button type="submit" class="btn btn-primary float-right">Create</button>
                                     </div>
                                 </form>
                             </div>
