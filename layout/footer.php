@@ -6,5 +6,5 @@
      </div>
      <!-- Default to the left -->
      <strong>Copyright &copy; 2022.</strong> All rights reserved <strong> @<?= APP_NAME ?></strong>.
-     Harsh Nakrani (8812036) , Shiv Laxmanbhai Ahir (8809928) , Harshil Anirudhkumar Trivedi (8804546)
+     Harsh Ghanshyambhai Nakrani (8812036) , Shiv Laxmanbhai Ahir (8809928) , Harshil Anirudhkumar Trivedi (8804546)
  </footer>

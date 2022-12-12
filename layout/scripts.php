@@ -2,6 +2,7 @@
 
 <script src="<?= BASE_URL ?>plugins/jquery/jquery.min.js"></script>
 <script src="<?= BASE_URL ?>plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="<?= BASE_URL ?>plugins/jquery-validation/additional-methods.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= BASE_URL ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -61,7 +62,7 @@ if (isset($_SESSION['flash_error'])) {
     </script>';
 
 
-    unset($_SESSION['flash_success']);
+    unset($_SESSION['flash_error']);
 }
 
 

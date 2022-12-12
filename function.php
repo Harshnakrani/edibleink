@@ -82,3 +82,38 @@ function get_location($city_id)
 
     return $city[0]["city"] . ", " . $city[0]["state"];
 }
+
+
+function get_publisher_name($id)
+{
+    global $database;
+    
+    $res = $database->select("publisher","name",["id" => $id]);
+    
+    return (isset($res[0]) ? $res[0] : "");
+}
+
+function get_authors_name($product_id)
+{
+    global $database;
+    
+    $result = $database->query("SELECT CONCAT(a.firstName,' ',a.lastName) 'author' FROM `author_has_products` ap,`author` a  where ap.product_id = ".$product_id." and a.id = ap.author_id")->fetchAll();
+
+    $author = [];
+    foreach($result as $single)
+    {
+        array_push($author,$single["author"]);
+    }
+
+    return implode("<br/>",$author);
+
+}
+
+function get_product_type($id)
+{
+    global $database;
+    
+    $res = $database->select("product_type","type",["id" => $id]);
+    
+    return (isset($res[0]) ? $res[0] : "");
+}

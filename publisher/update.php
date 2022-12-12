@@ -22,6 +22,9 @@ if (isset($_GET["id"])) {
     extract($_POST);
     $err = [];
 
+    $publisher = $database->select("publisher", "*", ["id" => $id]);
+    $data = $publisher[0];
+
     $name = sanitize_data($name);
     $street = sanitize_data($street);
     $city = sanitize_data($city);
@@ -156,7 +159,7 @@ if (isset($_GET["id"])) {
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
+                                                    <label >Name</label>
                                                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter publisher name" value="<?= (isset($data["name"])) ? $data["name"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">

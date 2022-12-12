@@ -10,8 +10,7 @@ if (isset($_GET["id"])) {
 
     $author = $database->select("author", "*", ["id" => $id]);
 
-    if(!isset($author[0]))
-    {
+    if (!isset($author[0])) {
         header("location:" . BASE_URL . "author");
         exit;
     }
@@ -21,6 +20,9 @@ if (isset($_GET["id"])) {
 
     extract($_POST);
     $err = [];
+
+    $author = $database->select("author", "*", ["id" => $id]);
+    $data = $author[0];
 
     $fname = ucfirst(sanitize_data($firstName));
     $lname = ucfirst(sanitize_data($lastName));
@@ -163,13 +165,13 @@ if (isset($_GET["id"])) {
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                               
+
                                                 <div class="form-group">
-                                                    <label for="name">First Name</label>
+                                                    <label >First Name</label>
                                                     <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter author first name" value="<?= (isset($data["firstName"])) ? $data["firstName"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="name">Last Name</label>
+                                                    <label >Last Name</label>
                                                     <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter author last name" value="<?= (isset($data["lastName"])) ? $data["lastName"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">

@@ -50,7 +50,7 @@
                  </li>
 
                  <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="<?=BASE_URL?>product/" class="nav-link">
                          <i class="nav-icon fas fa-box"></i>
                          <p>
                              Products
@@ -59,7 +59,7 @@
                  </li>
 
                  <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="<?=BASE_URL?>customer/" class="nav-link">
                          <i class="nav-icon fas fa-users"></i>
                          <p>
                              Customers
@@ -80,7 +80,7 @@
                      <a href="<?=BASE_URL?>publisher/" class="nav-link">
                          <i class="nav-icon fas fa-print"></i>
                          <p>
-                             Publisher
+                             Publishers
                          </p>
                      </a>
                  </li>

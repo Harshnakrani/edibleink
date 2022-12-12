@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-
+    // $(window).bind('resize', function () {
+    //     location.reload();
+    // });
 
 
     $select = $('.select2bs4').select2({
@@ -15,7 +17,7 @@ $(document).ready(function () {
     });
 
     $(".dt").DataTable({
-
+        responsive: true,
     });
 
     $("#sl_state").change(function () {
