@@ -50,7 +50,7 @@ $(document).ready(function () {
             pin_code: {
                 required: 'Please enter a pin code',
                 minlength: 'Please enter a valid pin code ex.ABCXYZ',
-                regex:"invalid pincode"
+                regex: "invalid pincode"
             }
         },
         errorElement: 'span',
@@ -118,7 +118,7 @@ $(document).ready(function () {
             pin_code: {
                 required: 'Please enter a pin code',
                 minlength: 'Please enter a valid pin code ex.ABCXYZ',
-                regex:"invalid pincode"
+                regex: "invalid pincode"
             }
         },
         errorElement: 'span',
@@ -156,7 +156,7 @@ $(document).ready(function () {
             {
                 required: true,
                 phoneUS: true,
-                minlength:10
+                minlength: 10
             },
             street: {
                 required: true
@@ -185,13 +185,13 @@ $(document).ready(function () {
                 regex: "Please enter valid first name"
             },
             email: {
-                required: "please enter email address",
-                email: "please enter valid email address",
+                required: "Please enter email address",
+                email: "Please enter valid email address",
             },
             mobile:
             {
-                required: "please enter mobile number",
-                phoneUS:"Please enter valid mobile number ex.9876543210",
+                required: "Please enter mobile number",
+                phoneUS: "Please enter valid mobile number ex.9876543210",
                 minlength: "Please enter valid mobile number"
             },
             street: {
@@ -206,7 +206,7 @@ $(document).ready(function () {
             pin_code: {
                 required: 'Please enter a pin code',
                 minlength: 'Please enter a valid pin code ex.ABCXYZ',
-                regex:"invalid pincode"
+                regex: "invalid pincode"
             }
         },
         errorElement: 'span',
@@ -222,6 +222,90 @@ $(document).ready(function () {
         }
     });
 
+
+    $('#frm_product').validate({
+        rules: {
+            title: {
+                required: true,
+                minlength: 2,
+            },
+            yaerpublished: {
+                required: true,
+                regex: /^\d{4}$/,
+                minlength: 4,
+                number: true,
+            },
+            isbn: {
+                required: true,
+                regex: /^\d{10,13}$/,
+                minlength: 10,
+                number: true,
+            },
+            price: {
+                required: true,
+                regex: /^(\d+(\.\d{1,2})?)$/,
+            },
+            stock: {
+                required: true,
+                number:true,
+                regex:/^[\d]+$/,
+            },
+            publisher: {
+                required: true,
+            },
+            type: {
+                required: true,
+            },
+            "author[]":{
+                required: true,
+            }
+        },
+        messages: {
+            title: {
+                required: 'Please enter product title',
+                minlength: 'Title must be at least 2 characters long',
+            },
+            yaerpublished: {
+                required: "Please enter yaer published",
+                regex: 'Please enter valid year',
+                minlength: "Please enter valid year"
+            },
+            isbn: {
+                required: "Please enter ISBN",
+                regex: "ISBN should be 10 character long and only numbers allowed",
+                minlength: "please enter valid isbn"
+            },
+            price: {
+                required: "Please enter a price",
+                regex: "Please enter a valid number",
+            },
+            type: {
+                required: "Please select product type",
+            },
+            stock: {
+                required: "Please enter product stock",
+                number:"Please enter valid stock amount",
+                regex:"Please enter valid stock amount",
+            },
+            publisher: {
+                required: "Please select publisher of the product",
+            },
+            "author[]":{
+                required: "Please select author of the product",
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
 
 
 

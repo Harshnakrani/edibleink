@@ -14,6 +14,34 @@ function get_province()
     return $res;
 }
 
+function get_publisher()
+{
+    global $database;
+
+    $res = $database->select("publisher", "*");
+
+    return $res;
+}
+
+function get_authors()
+{
+    global $database;
+
+    $res = $database->select("author", "*");
+
+    return $res;
+}
+
+function get_authors_by_product($id)
+{
+    global $database;
+
+    $res = $database->select("author_has_products", "author_id",["product_id" => $id]);
+
+
+    return $res;
+}
+
 function get_stateid_by_city($city_id = "")
 {
     global $database;
@@ -116,4 +144,12 @@ function get_product_type($id)
     $res = $database->select("product_type","type",["id" => $id]);
     
     return (isset($res[0]) ? $res[0] : "");
+}
+function get_product_type_list()
+{
+    global $database;
+    
+    $res = $database->select("product_type","*");
+    
+    return $res;
 }

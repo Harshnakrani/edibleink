@@ -32,7 +32,7 @@ $product = $database->select("product", "*");
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Product</h1>
+                            <h1 class="m-0">Product List</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -64,6 +64,7 @@ $product = $database->select("product", "*");
                                                 <th>Year Published</th>
                                                 <th>ISBN</th>
                                                 <th>Price</th>
+                                                <th>Stock</th>
                                                 <th>Publisher</th>
                                                 <th>Author</th>
                                                 <th>Product Type</th>
@@ -81,6 +82,7 @@ $product = $database->select("product", "*");
                                                     <td><?= $single["yearPublished"] ?></td>
                                                     <td><?= $single["isbn"] ?></td>
                                                     <td><?= $single["price"] ?></td>
+                                                    <td><?= $single["stock"] ?></td>
                                                     <td><?= get_publisher_name($single["publisher_id"]); ?></td>
                                                     <td><?= get_authors_name($single["id"]); ?></td>
                                                     <td><?= get_product_type($single["product_type_id"]); ?></td>
@@ -88,9 +90,9 @@ $product = $database->select("product", "*");
                                                         <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>product/update.php?id=<?= $single["id"] ?>">
                                                             Edit
                                                         </a>
-                                                        <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>product/delete.php?id=<?= $single["id"] ?>">
+                                                        <!-- <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>product/delete.php?id=<?= $single["id"] ?>">
                                                             Delete
-                                                        </a>
+                                                        </a> -->
                                                     </td>
                                                 </tr>
                                             <?php

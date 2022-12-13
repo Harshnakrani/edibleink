@@ -32,7 +32,7 @@ $publisher = $database->select("publisher", "*");
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Publisher</h1>
+                            <h1 class="m-0">Publisher List</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -80,9 +80,9 @@ $publisher = $database->select("publisher", "*");
                                                         <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>publisher/update.php?id=<?= $single["id"] ?>">
                                                             Edit
                                                         </a>
-                                                        <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>publisher/delete.php?id=<?= $single["id"] ?>">
+                                                        <!-- <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>publisher/delete.php?id=<?= $single["id"] ?>">
                                                             Delete
-                                                        </a>
+                                                        </a> -->
                                                     </td>
                                                 </tr>
                                             <?php

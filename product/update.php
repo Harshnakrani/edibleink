@@ -2,11 +2,26 @@
 require_once "../connection.php";
 require_once "../function.php";
 
+if (isset($_GET["id"])) {
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_GET["id"];
 
 
+    $product = $database->select("product", "*", ["id" => $id]);
+    
+    if (!isset($product[0])) {
+        header("location:" . BASE_URL . "product");
+        exit;
+    }
+    
+    $data = $product[0];
+} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    
     extract($_POST);
+    $product = $database->select("product", "*", ["id" => $id]);
+    $data = $product[0];
+
     $err = [];
 
     $title = ucfirst(sanitize_data($title));
@@ -60,8 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($err)) {
 
-        $insert_data = [
-            "id" => get_next_id("product"),
+        $update_data = [
             "title" => $title,
             "yearPublished" => $year,
             "isbn" => $isbn,
@@ -71,34 +85,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "publisher_id" => $publisher
         ];
 
-        $result = $database->insert("product", $insert_data);
+        $result = $database->update("product", $update_data, ["id" => $id]);
 
-
+        // print_r($database->error);
         if ($result) {
-
-            $id = $insert_data["id"];
-
+            
             $author_has_product = [];
-
+            
             foreach ($author as $single) {
                 array_push($author_has_product, ["author_id" => $single, "product_id" => $id]);
             }
-
+            
+            $database->delete("author_has_products", ["product_id" => $id]);
+            // print_r($database->error);
+            
             $result = $database->insert("author_has_products", $author_has_product);
+            // print_r($database->error);
 
             if ($result) {
-                set_flash("success", "Product added successfully.");
+                set_flash("success", "Product updated successfully.");
 
-                header("location:" . BASE_URL . "/author");
+                header("location:" . BASE_URL . "/product");
                 exit;
             } else {
-                $database->delete("product", ["id" => $id]);
                 set_flash("error", "Database Error Please Try Again");
             }
         } else {
             set_flash("error", "Database Error Please Try Again");
         }
     }
+}
+else {
+    header("location:" . BASE_URL . "product");
+    exit;
 }
 
 
@@ -135,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>product">Product</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                                <li class="breadcrumb-item active">Edit</li>
                             </ol>
                         </div>
 
@@ -150,9 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="row">
 
                         <div class="col-md-12 col-sm-12">
-                            <div class="card card-primary">
+                            <div class="card card-info">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add New Product</h3>
+                                    <h3 class="card-title">Update Product</h3>
                                 </div>
 
                                 <?php
@@ -174,24 +193,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
 
                                 <form id="frm_product" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
+                                    <input type="hidden" name="id" value="<?= (isset($data["id"])) ? $data["id"] : "" ?>">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Product Title</label>
-                                                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter product title">
+                                                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter product title" value="<?= (isset($data["title"])) ? $data["title"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Year Published</label>
-                                                    <input type="text" name="yaerpublished" class="form-control" id="year" placeholder="Enter product year published">
+                                                    <input type="text" name="yaerpublished" class="form-control" id="year" placeholder="Enter product year published" value="<?= (isset($data["yearPublished"])) ? $data["yearPublished"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>ISBN</label>
-                                                    <input type="text" name="isbn" class="form-control" id="isbn" placeholder="Enter product ISBN">
+                                                    <input type="text" name="isbn" class="form-control" id="isbn" placeholder="Enter product ISBN" value="<?= (isset($data["isbn"])) ? $data["isbn"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" name="price" class="form-control" id="price" placeholder="Enter product price">
+                                                    <input type="text" name="price" class="form-control" id="price" placeholder="Enter product price" value="<?= (isset($data["price"])) ? $data["price"] : "" ?>">
                                                 </div>
 
                                             </div>
@@ -205,7 +225,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                         foreach ($res as $single) {
                                                         ?>
-                                                            <option value="<?= $single["id"] ?>"><?= $single["type"] ?></option>
+                                                            <option <?php
+
+                                                                    if ($data["product_type_id"] == $single["id"]) {
+                                                                        echo "selected";
+                                                                    }
+
+                                                                    ?> value="<?= $single["id"] ?>"><?= $single["type"] ?></option>
                                                         <?php
                                                         }
 
@@ -215,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                 <div class="form-group">
                                                     <label>Stock</label>
-                                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Enter product stock">
+                                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Enter product stock" value="<?= (isset($data["stock"])) ? $data["stock"] : "" ?>">
                                                 </div>
 
                                                 <div class="form-group">
@@ -226,13 +252,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                         foreach ($res as $single) {
                                                         ?>
-                                                            <option value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
+                                                            <option <?php
+
+                                                                    if ($data["publisher_id"] == $single["id"]) {
+                                                                        echo "selected";
+                                                                    }
+
+                                                                    ?> value="<?= $single["id"] ?>"><?= $single["name"] ?></option>
                                                         <?php
                                                         }
 
                                                         ?>
                                                     </select>
                                                 </div>
+                                                <?php
+
+                                                $authors = get_authors_by_product($data["id"]);
+
+                                                ?>
 
                                                 <div class="form-group">
                                                     <label>Author</label>
@@ -241,7 +278,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                         foreach ($res as $single) {
                                                         ?>
-                                                            <option value="<?= $single["id"] ?>"><?= $single["firstName"] . " " . $single["lastName"] ?></option>
+                                                            <option <?php
+
+                                                                    if (in_array($single["id"], $authors)) {
+                                                                        echo "selected";
+                                                                    }
+
+                                                                    ?> value="<?= $single["id"] ?>"><?= $single["firstName"] . " " . $single["lastName"] ?></option>
                                                         <?php
                                                         }
 
@@ -256,7 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </div>
 
                                     <div class="card-footer ">
-                                        <button type="submit" class="btn btn-primary float-right">Create</button>
+                                        <button type="submit" class="btn btn-info float-right">Save</button>
                                     </div>
                                 </form>
                             </div>
