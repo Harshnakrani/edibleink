@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <div class="row">
                                                 <div class="col-12">
                                                     <h2 class="lead"><b><?= $single["title"] ?></b></h2>
-                                                    <div class="badge text-lg bg-purple mb-2"><b>Price: </b> $<?= $single["price"] ?></div>
+                                                    <div class="badge text-md bg-info mb-2"><b>Price: </b> $<?= $single["price"] ?></div>
                                                     <div class="text-muted pb-1"><b>Author: </b> <?php echo str_replace('<br/>', ', ', get_authors_name($single["id"]));  ?> </div>
                                                     <div class="text-muted pb-1"><b>Publisher: </b> <?php echo str_replace('<br/>', ', ', get_publisher_name($single["publisher_id"]));  ?> </div>
                                                     <ul class="ml-4 mb-0 fa-ul text-muted">
@@ -124,15 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
+       
 
         <!-- Main Footer -->
         <?php include_once "../layout/footer.php" ?>

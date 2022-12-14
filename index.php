@@ -18,7 +18,7 @@ require_once "function.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?=APP_NAME ?></title>
+    <title><?= APP_NAME ?></title>
 
     <?php require_once "layout/links.php"; ?>
 
@@ -54,66 +54,80 @@ require_once "function.php";
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+                            <a href="<?= BASE_URL ?>product" class="text-dark">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info"><i class="fas fa-box"></i></span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Products</span>
-                                    <span class="info-box-number">1,410</span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Products</span>
+                                        <span class="info-box-number"><?= $database->count("product") ?></span>
+                                    </div>
+                                    <!-- /.info-box-content -->
                                 </div>
-                                <!-- /.info-box-content -->
-                            </div>
+                                <!-- /.info-box -->
+                            </a>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+
+                            <a href="<?= BASE_URL ?>customer" class="text-dark">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-success"><i class="far fa-user"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Customers</span>
+                                        <span class="info-box-number"><?= $database->count("customer") ?></span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                            </a>
                             <!-- /.info-box -->
                         </div>
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Users</span>
-                                    <span class="info-box-number">410</span>
+                            <a href="<?= BASE_URL ?>product" class="text-dark">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-warning"><i class="fas fa-file-invoice"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Invoice</span>
+                                        <span class="info-box-number"><?= $database->count("invoice") ?></span>
+                                    </div>
+                                    <!-- /.info-box-content -->
                                 </div>
-                                <!-- /.info-box-content -->
-                            </div>
+                            </a>
                             <!-- /.info-box -->
                         </div>
                         <!-- /.col -->
                         <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Invoice</span>
-                                    <span class="info-box-number">13,648</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+                            <a href="<?= BASE_URL ?>author" class="text-dark">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-danger"><i class="far fa-user"></i></span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Authors</span>
-                                    <span class="info-box-number">93,139</span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Authors</span>
+                                        <span class="info-box-number"><?= $database->count("author") ?></span>
+                                    </div>
+                                    <!-- /.info-box-content -->
                                 </div>
-                                <!-- /.info-box-content -->
-                            </div>
+                            </a>
                             <!-- /.info-box -->
                         </div>
                         <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
 
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Publisher</span>
-                                    <span class="info-box-number">93,139</span>
+                            <a href="<?= BASE_URL ?>publisher" class="text-dark">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-danger"><i class="far fa-building"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Publisher</span>
+                                        <span class="info-box-number"><?= $database->count("publisher") ?></span>
+                                    </div>
+                                    <!-- /.info-box-content -->
                                 </div>
-                                <!-- /.info-box-content -->
-                            </div>
+                            </a>
                             <!-- /.info-box -->
                         </div>
                         <!-- /.col -->
@@ -125,15 +139,7 @@ require_once "function.php";
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
+
 
         <?php include_once "layout/footer.php" ?>
     </div>

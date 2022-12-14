@@ -6,6 +6,8 @@
 */
 
 session_start();
+error_reporting(E_ERROR | E_PARSE);
+date_default_timezone_set('US/Eastern');
 
 require 'vendor/autoload.php';
  

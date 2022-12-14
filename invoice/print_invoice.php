@@ -67,7 +67,7 @@ $invoice->setTo(array($customer["firstName"] . " " . $customer["lastName"], $cus
 $sub = 0;
 foreach ($invoice_item as $single) {
     $in_sub = $single["quantity"] * $single["price"];
-    $invoice->addItem($single["title"]."asdsadaskjdaskjdb sduas dugs udgasiu gdbusa dusag kdasu dgsa gdjsh vd", "", $single["quantity"], false, $single["price"], 0, $in_sub);
+    $invoice->addItem($single["title"], "", $single["quantity"], false, $single["price"], 0, $in_sub);
     $sub += $in_sub;
 }
 
@@ -83,6 +83,6 @@ $invoice->addTitle("Important Notice");
 
 $invoice->addParagraph("No item will be replaced or refunded if you don't have the invoice with you.");
 
-$invoice->setFooternote(APP_NAME);
+$invoice->setFooternote(APP_NAME." -  Harsh Nakrani (8812036) , Shiv Ahir (8809928) , Harshil Trivedi (8804546)");
 
-$invoice->render('example1.pdf', $force);
+$invoice->render(APP_NAME.'_invoice_'.$customer["firstName"].'.pdf', $force);
