@@ -33,42 +33,25 @@
          <nav class="mt-2">
              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                  <li class="nav-item">
-                     <a href="<?=BASE_URL?>" class="nav-link">
+                     <a href="<?= BASE_URL ?>" class="nav-link">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
                              Dashboard
                          </p>
                      </a>
                  </li>
+
                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-file-invoice"></i>
+                     <a href="<?= BASE_URL ?>publisher/" class="nav-link">
+                         <i class="nav-icon fas fa-print"></i>
                          <p>
-                             Invoices
+                             Publishers
                          </p>
                      </a>
                  </li>
 
                  <li class="nav-item">
-                     <a href="<?=BASE_URL?>product/" class="nav-link">
-                         <i class="nav-icon fas fa-box"></i>
-                         <p>
-                             Products
-                         </p>
-                     </a>
-                 </li>
-
-                 <li class="nav-item">
-                     <a href="<?=BASE_URL?>customer/" class="nav-link">
-                         <i class="nav-icon fas fa-users"></i>
-                         <p>
-                             Customers
-                         </p>
-                     </a>
-                 </li>
-
-                 <li class="nav-item">
-                     <a href="<?=BASE_URL?>author/" class="nav-link">
+                     <a href="<?= BASE_URL ?>author/" class="nav-link">
                          <i class="nav-icon fas fa-feather"></i>
                          <p>
                              Authors
@@ -77,13 +60,39 @@
                  </li>
 
                  <li class="nav-item">
-                     <a href="<?=BASE_URL?>publisher/" class="nav-link">
-                         <i class="nav-icon fas fa-print"></i>
+                     <a href="<?= BASE_URL ?>customer/" class="nav-link">
+                         <i class="nav-icon fas fa-users"></i>
                          <p>
-                             Publishers
+                             Customers
                          </p>
                      </a>
                  </li>
+
+                 <li class="nav-item">
+                     <a href="<?= BASE_URL ?>product/" class="nav-link">
+                         <i class="nav-icon fas fa-box"></i>
+                         <p>
+                             Products
+                         </p>
+                     </a>
+                 </li>
+
+                 <li class="nav-item">
+                     <a href="<?= BASE_URL ?>invoice/" class="nav-link">
+                         <i class="nav-icon fas fa-file-invoice"></i>
+                         <p>
+                             Invoices
+                         </p>
+                     </a>
+                 </li>
+
+
+
+
+
+
+
+
 
              </ul>
          </nav>

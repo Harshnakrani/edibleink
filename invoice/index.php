@@ -2,7 +2,7 @@
 require_once "../connection.php";
 require_once "../function.php";
 
-$product = $database->select("product", "*");
+$invoice = $database->select("invoice", "*");
 
 ?>
 
@@ -32,11 +32,11 @@ $product = $database->select("product", "*");
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Product List</h1>
+                            <h1 class="m-0">Invoice List</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">Product</li>
+                                <li class="breadcrumb-item active">Invoice</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -48,49 +48,38 @@ $product = $database->select("product", "*");
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
+
+
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title float-right"> <a href="<?= BASE_URL ?>product/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a> </h3>
+                                    <h3 class="card-title float-right"> <a href="<?= BASE_URL ?>invoice/add.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Create</a> </h3>
                                 </div>
 
                                 <div class="card-body">
 
-                                    <table id="dt_product" class="dt table table-bordered table-hover dataTable dtr-inline">
+                                    <table id="dt_invoice" class="dt table table-bordered table-hover dataTable dtr-inline">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Title</th>
-                                                <th>Year Published</th>
-                                                <th>ISBN</th>
-                                                <th>Price</th>
-                                                <th>Publisher</th>
-                                                <th>Author</th>
-                                                <th>Product Type</th>
+                                                <th>Invoice Id</th>
+                                                <th>Customer Name</th>
+                                                <th>Total</th>
+                                                <th>Date Time</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
-                                            foreach ($product as $single) {
+                                            foreach ($invoice as $single) {
                                             ?>
                                                 <tr>
                                                     <td><?= $single["id"] ?></td>
-                                                    <td><?= $single["title"] ?></td>
-                                                    <td><?= $single["yearPublished"] ?></td>
-                                                    <td><?= $single["isbn"] ?></td>
-                                                    <td><?= $single["price"] ?></td>
-                                                    <td><?= get_publisher_name($single["publisher_id"]); ?></td>
-                                                    <td><?= get_authors_name($single["id"]); ?></td>
-                                                    <td><?= get_product_type($single["product_type_id"]); ?></td>
+                                                    <td><?=get_customer_name($single["customer_id"]) ?></td>
+                                                    <td>$<?=$single["total"] ?></td>
+                                                    <td><?=$single["created_at"] ?></td>
                                                     <td>
-                                                        <a class="btn btn-info btn-sm" href="<?= BASE_URL ?>product/update.php?id=<?= $single["id"] ?>">
-                                                            Edit
-                                                        </a>
-                                                        <!-- <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>product/delete.php?id=<?= $single["id"] ?>">
-                                                            Delete
-                                                        </a> -->
+                                                        
                                                     </td>
                                                 </tr>
                                             <?php
@@ -127,6 +116,7 @@ $product = $database->select("product", "*");
         </aside>
         <!-- /.control-sidebar -->
 
+        
         <?php include_once "../layout/footer.php" ?>
     </div>
 

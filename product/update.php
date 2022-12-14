@@ -29,7 +29,6 @@ if (isset($_GET["id"])) {
     $isbn = sanitize_data($isbn);
     $price = sanitize_data($price);
     $type = sanitize_data($type);
-    $stock = sanitize_data($stock);
     $publisher = sanitize_data($publisher);
 
 
@@ -60,10 +59,6 @@ if (isset($_GET["id"])) {
         array_push($err, "Product type is required");
     }
 
-    if (empty($stock)) {
-        array_push($err, "Product stock is required");
-    }
-
     if (empty($publisher)) {
         array_push($err, "Product publisher is required");
     }
@@ -81,7 +76,6 @@ if (isset($_GET["id"])) {
             "isbn" => $isbn,
             "product_type_id" => $type,
             "price" => $price,
-            "stock" => $stock,
             "publisher_id" => $publisher
         ];
 
@@ -237,11 +231,6 @@ else {
 
                                                         ?>
                                                     </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Stock</label>
-                                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Enter product stock" value="<?= (isset($data["stock"])) ? $data["stock"] : "" ?>">
                                                 </div>
 
                                                 <div class="form-group">

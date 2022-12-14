@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $isbn = sanitize_data($isbn);
     $price = sanitize_data($price);
     $type = sanitize_data($type);
-    $stock = sanitize_data($stock);
     $publisher = sanitize_data($publisher);
 
 
@@ -45,9 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         array_push($err, "Product type is required");
     }
 
-    if (empty($stock)) {
-        array_push($err, "Product stock is required");
-    }
 
     if (empty($publisher)) {
         array_push($err, "Product publisher is required");
@@ -67,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "isbn" => $isbn,
             "product_type_id" => $type,
             "price" => $price,
-            "stock" => $stock,
             "publisher_id" => $publisher
         ];
 
@@ -89,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($result) {
                 set_flash("success", "Product added successfully.");
 
-                header("location:" . BASE_URL . "/author");
+                header("location:" . BASE_URL . "/product");
                 exit;
             } else {
                 $database->delete("product", ["id" => $id]);
@@ -211,11 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                         ?>
                                                     </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Stock</label>
-                                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Enter product stock">
                                                 </div>
 
                                                 <div class="form-group">
