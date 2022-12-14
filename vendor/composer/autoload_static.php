@@ -11,6 +11,10 @@ class ComposerStaticInit38dbb47c3db2a49fdfb4a94568add165
         array (
             'Medoo\\' => 6,
         ),
+        'K' => 
+        array (
+            'Konekt\\PdfInvoice\\' => 18,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,10 +22,15 @@ class ComposerStaticInit38dbb47c3db2a49fdfb4a94568add165
         array (
             0 => __DIR__ . '/..' . '/catfan/medoo/src',
         ),
+        'Konekt\\PdfInvoice\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/konekt/pdf-invoice/src',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'FPDF' => __DIR__ . '/..' . '/setasign/fpdf/fpdf.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,4 +1,9 @@
 <?php
+/* 
+-- Harshil Trivedi (8804546)
+-- Shiv Ahir (8809928)
+-- Harsh Nakrani (8812036)
+*/
 require_once "../connection.php";
 require_once "../function.php";
 
@@ -167,11 +172,11 @@ if (isset($_GET["id"])) {
                                             <div class="col-md-6">
 
                                                 <div class="form-group">
-                                                    <label >First Name</label>
+                                                    <label>First Name</label>
                                                     <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter author first name" value="<?= (isset($data["firstName"])) ? $data["firstName"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label >Last Name</label>
+                                                    <label>Last Name</label>
                                                     <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter author last name" value="<?= (isset($data["lastName"])) ? $data["lastName"] : "" ?>">
                                                 </div>
                                                 <div class="form-group">

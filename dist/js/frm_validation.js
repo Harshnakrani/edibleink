@@ -1,3 +1,8 @@
+/* 
+-- Harshil Trivedi (8804546)
+-- Shiv Ahir (8809928)
+-- Harsh Nakrani (8812036)
+*/
 $(document).ready(function () {
 
     $.validator.addMethod(
@@ -228,6 +233,7 @@ $(document).ready(function () {
             title: {
                 required: true,
                 minlength: 2,
+                maxlength:65
             },
             yaerpublished: {
                 required: true,
@@ -264,6 +270,7 @@ $(document).ready(function () {
             title: {
                 required: 'Please enter product title',
                 minlength: 'Title must be at least 2 characters long',
+                maxlength: 'Title must be less than 65 characters',
             },
             yaerpublished: {
                 required: "Please enter yaer published",

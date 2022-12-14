@@ -1,3 +1,6 @@
+ <!-- Harshil Trivedi (8804546)
+Shiv Ahir (8809928)
+Harsh Nakrani (8812036) -->
 <link rel="shortcut icon" href="<?= BASE_URL ?>dist/img/logo-1.png" type="image/x-icon">
 
 <link rel="stylesheet" href="<?= BASE_URL ?>plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

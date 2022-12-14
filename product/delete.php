@@ -1,4 +1,10 @@
 <?php
+/* 
+-- Harshil Trivedi (8804546)
+-- Shiv Ahir (8809928)
+-- Harsh Nakrani (8812036)
+*/
+
 require_once "../connection.php";
 require_once "../function.php";
 

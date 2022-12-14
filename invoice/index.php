@@ -1,4 +1,9 @@
 <?php
+/* 
+-- Harshil Trivedi (8804546)
+-- Shiv Ahir (8809928)
+-- Harsh Nakrani (8812036)
+*/
 require_once "../connection.php";
 require_once "../function.php";
 
@@ -79,7 +84,8 @@ $invoice = $database->select("invoice", "*");
                                                     <td>$<?=$single["total"] ?></td>
                                                     <td><?=$single["created_at"] ?></td>
                                                     <td>
-                                                        
+                                                        <a target="_blank" href="<?php echo BASE_URL."invoice/print_invoice.php?force=I&id=".$single["id"]?>" class="btn btn-sm btn-primary"> <i class="fa fa-eye"></i> View </a>    
+                                                        <a  href="<?php echo BASE_URL."invoice/print_invoice.php?force=D&id=".$single["id"]?>" class="btn btn-sm btn-info"> <i class="fa fa-download"></i> Download </a>    
                                                     </td>
                                                 </tr>
                                             <?php

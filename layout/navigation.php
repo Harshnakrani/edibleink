@@ -1,4 +1,7 @@
- <!-- Navbar -->
+  <!-- Harshil Trivedi (8804546)
+Shiv Ahir (8809928)
+Harsh Nakrani (8812036) -->
+<!-- Navbar -->
  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
      <!-- Left navbar links -->
      <ul class="navbar-nav">

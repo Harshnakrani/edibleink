@@ -1,5 +1,6 @@
 {
     "require": {
-        "catfan/medoo": "^2.1"
+        "catfan/medoo": "^2.1",
+        "konekt/pdf-invoice": "^1.12"
     }
 }

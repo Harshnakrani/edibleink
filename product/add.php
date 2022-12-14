@@ -1,4 +1,10 @@
 <?php
+/* 
+-- Harshil Trivedi (8804546)
+-- Shiv Ahir (8809928)
+-- Harsh Nakrani (8812036)
+*/
+
 require_once "../connection.php";
 require_once "../function.php";
 
@@ -174,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Product Title</label>
-                                                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter product title">
+                                                    <input type="text" name="title" maxlength="65" class="form-control" id="title" placeholder="Enter product title">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Year Published</label>
